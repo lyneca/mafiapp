@@ -12,19 +12,21 @@
 </div>
 <h1>Mafia</h1>
 <div class="content">
-    <table style="margin: 10px;">
-        <tr>
-            <td width="200">Name</td>
-            <td>Votes</td>
-        </tr>
-        {% for votecount in votecounts %}
+    <div align="center">
+        <table style="margin: 10px;">
             <tr>
-                <td>{{ votecount|first }}</td>
-                <td>{{ votecount|last }}</td>
+                <td width="150">Name</td>
+                <td>Votes</td>
             </tr>
-            {#    {{ votecount }}#}
-        {% endfor %}
-    </table>
+            {% for votecount in votecounts %}
+                <tr>
+                    <td>{{ votecount|first }}</td>
+                    <td>{{ votecount|last }}</td>
+                </tr>
+                {#    {{ votecount }}#}
+            {% endfor %}
+        </table>
+    </div>
     <br>
     {% for vote in votes %}
         > {{ vote }} <br>
@@ -41,13 +43,22 @@
             </select>
             <button type="submit">Lynch them!</button>
         </form>
+        <form style="margin: 10px;" action="{% url 'voting:change_pwd' %}" method="post">
+            {% csrf_token %}
+            <input type="password" name="newpwd" placeholder="Change Password">
+            <input type="submit" value="Change me password">
+        </form>
+        <form style="margin: 10px;" action="{% url 'voting:log_out' %}" method="post">
+        {% csrf_token %}
+            <input type="submit" value="Log me out plz">
+        </form>
     {% else %}
         Login to vote!
-        <form style="margin: 10px;" action="{% url 'voting:log_in_user' %}" method="post">
-        {% csrf_token %}
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit">
+        <form style="margin: 10px;" action="{% url 'voting:log_in' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <input type="submit">
         </form>
     {% endif %}
 </div>

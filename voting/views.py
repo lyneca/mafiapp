@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from .models import Vote, VoteCount
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
 
@@ -19,7 +19,7 @@ def reset_vote_counts():
 def index(request):
     reset_vote_counts()
     votes = Vote.objects.order_by('time')
-    votecounts = [v.get_list() for v in VoteCount.objects.order_by('votes')]
+    votecounts = [v.get_list() for v in VoteCount.objects.order_by('votes').reverse()]
     users = User.objects.all().filter(is_superuser=False)
     context = {
         'votes': votes,
@@ -38,7 +38,7 @@ def vote(request):
     return HttpResponseRedirect(reverse('voting:index'))
 
 
-def log_in_user(request):
+def log_in(request):
     user = authenticate(username=request.POST['username'], password=request.POST['password'])
     if user is not None:
         if user.is_active:
@@ -48,4 +48,19 @@ def log_in_user(request):
             print("The password is valid, but the account has been disabled!")
     else:
         print("The username and password were incorrect.")
+    return HttpResponseRedirect(reverse('voting:index'))
+
+
+def change_pwd(request):
+    newpwd = request.POST['newpwd']
+    user = request.user
+    request.user.set_password(newpwd)
+    request.user.save()
+    user = authenticate(username=user.username, password=newpwd)
+    login(request, user)
+    return HttpResponseRedirect(reverse('voting:index'))
+
+
+def log_out(request):
+    logout(request)
     return HttpResponseRedirect(reverse('voting:index'))
