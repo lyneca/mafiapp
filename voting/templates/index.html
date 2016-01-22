@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <link href='https://fonts.googleapis.com/css?family=Raleway:100|Roboto:300' rel='stylesheet' type='text/css'>
-    <title>Mafia Votes</title>
     <link rel="stylesheet" type="text/css" href="/static/mafia.css">
+    <title>Mafia Votes</title>
 </head>
 <body>
 <div id="status">
@@ -13,7 +13,8 @@
 <h1>Mafia</h1>
 <div class="content" style="padding: 5px;">
     <div align="center">
-        <table style="margin: 10px;">
+        Current Vote Tallies:
+        <table style="margin: 0 10px 10px;">
             <tr>
                 <td width="150">Name</td>
                 <td>Votes</td>
@@ -27,16 +28,19 @@
             {% endfor %}
         </table>
     </div>
-    <br>
-    {% for vote in votes %}
-        > {{ vote }} <br>
-    {% endfor %}
-
+    History:
+    <div style="text-align: left; margin: auto; width: 450px">
+        {% for vote in votes %}
+            {{ vote.time }}: <a href="/users/{{ vote.voter.pk }}">{{ vote.voter.get_full_name }}</a> voted for
+            <a href="/users/{{ vote.votee.pk }}">{{ vote.votee.get_full_name }}</a><br>
+        {% endfor %}
+    </div>
     {% if user.is_authenticated %}
         <form style="margin: 10px;" action="{% url 'voting:vote' %}" method="post">
             {% csrf_token %}
             Vote for:
             <select name="votee" required title="User">
+                <option value=-1>Nobody</option>
                 {% for user in users %}
                     <option value="{{ user.pk }}">{{ user.get_full_name }}</option>
                 {% endfor %}
@@ -49,7 +53,7 @@
             <input type="submit" value="Change me password">
         </form>
         <form style="margin: 10px;" action="{% url 'voting:log_out' %}" method="post">
-        {% csrf_token %}
+            {% csrf_token %}
             <input type="submit" value="Log me out plz">
         </form>
     {% else %}

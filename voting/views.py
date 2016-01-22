@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from .models import Vote, VoteCount
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+import datetime
 
 
 def reset_vote_counts():
@@ -22,6 +23,7 @@ def index(request):
     votecounts = [v.get_list() for v in VoteCount.objects.all().exclude(votes=0).order_by('votes').reverse()]
     users = User.objects.all().filter(is_superuser=False)
     context = {
+        'time': datetime.datetime.now().time().isoformat().split(':')[0],
         'votes': votes,
         'votecounts': votecounts,
         'users': users,
@@ -32,10 +34,13 @@ def index(request):
 
 def vote(request):
     voter = get_object_or_404(User, pk=request.user.pk)
-    votee = User.objects.get(pk=request.POST['votee'])
     if Vote.objects.filter(voter=voter):
-        Vote.objects.get(voter=voter).delete()
-    Vote(voter=voter, votee=votee).save()
+        for vote in Vote.objects.all().filter(voter=voter):
+            vote.active = False
+            vote.save()
+    if not request.POST['votee'] == '-1':
+        votee = User.objects.get(pk=request.POST['votee'])
+        Vote(voter=voter, votee=votee).save()
     return HttpResponseRedirect(reverse('voting:index'))
 
 
@@ -65,3 +70,13 @@ def change_pwd(request):
 def log_out(request):
     logout(request)
     return HttpResponseRedirect(reverse('voting:index'))
+
+
+def user_profile(request, user_id):
+    user = User.objects.get(pk=user_id)
+    context = {
+        'user': user,
+        'votes': Vote.objects.filter(voter=user),
+        'voted': Vote.objects.filter(votee=user),
+    }
+    return render(request, 'user_profile.html', context=context)

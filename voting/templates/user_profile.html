@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100|Roboto:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/static/mafia.css">
+    <title>{{ user.get_full_name }}'s Profile</title>
+</head>
+<body>
+<h1>Mafia</h1>
+<div class="content" style="padding: 5px;">
+{{ user.get_full_name }} voted to lynch the following: <br>
+{% for vote in votes %}
+    {{ vote.votee.get_full_name }} at {{ vote.time }}<br>
+{% endfor %}
+<br>
+
+{{ user.get_full_name }} was voted by: <br>
+{% for vote in voted %}
+    {{ vote.voter.get_full_name }} at {{ vote.time }}<br>
+{% endfor %}
+</div>
+</body>
+</html>

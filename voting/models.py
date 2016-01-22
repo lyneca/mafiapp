@@ -7,6 +7,7 @@ class Vote(models.Model):
     voter = models.ForeignKey(User, related_name='voter')
     votee = models.ForeignKey(User, related_name='votee')
     time = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.voter.get_full_name() + ' voted for ' + self.votee.get_full_name()
@@ -17,7 +18,7 @@ class VoteCount(models.Model):
     votes = models.IntegerField(default=0)
 
     def update_count(self):
-        vote_objects_for_me = Vote.objects.all().filter(votee=self.user)
+        vote_objects_for_me = Vote.objects.all().filter(votee=self.user, active=True)
         votes_for_me = vote_objects_for_me.count()
         self.votes = votes_for_me
         self.save()
@@ -27,3 +28,10 @@ class VoteCount(models.Model):
 
     def __str__(self):
         return self.user.get_full_name() + ': ' + str(self.votes)
+
+""""
+> Luke Tuthill voted for Craig Smith
+> Zac Francis voted for Jarvis Carroll
+> Craig Smith voted for Luke Tuthill
+> Sam Kelly voted for Craig Smith
+"""
