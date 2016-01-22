@@ -8,6 +8,7 @@ class Vote(models.Model):
     votee = models.ForeignKey(User, related_name='votee')
     time = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
+    is_cancel = models.BooleanField(default=False)
 
     def __str__(self):
         return self.voter.get_full_name() + ' voted for ' + self.votee.get_full_name()
@@ -24,10 +25,11 @@ class VoteCount(models.Model):
         self.save()
 
     def get_list(self):
-        return [self.user.get_full_name(), self.votes]
+        return [self.user, self.votes]
 
     def __str__(self):
         return self.user.get_full_name() + ': ' + str(self.votes)
+
 
 """"
 > Luke Tuthill voted for Craig Smith

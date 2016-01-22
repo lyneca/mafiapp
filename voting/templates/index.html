@@ -21,18 +21,23 @@
             </tr>
             {% for votecount in votecounts %}
                 <tr>
-                    <td>{{ votecount|first }}</td>
+                    {% with votecount|first as voteuser %}
+                        <td><a href="/users/{{ voteuser.pk }}"> {{ voteuser.get_full_name }}</a></td>
+                    {% endwith %}
                     <td>{{ votecount|last }}</td>
                 </tr>
-                {#    {{ votecount }}#}
             {% endfor %}
         </table>
     </div>
     History:
     <div style="text-align: left; margin: auto; width: 450px">
         {% for vote in votes %}
-            {{ vote.time }}: <a href="/users/{{ vote.voter.pk }}">{{ vote.voter.get_full_name }}</a> voted for
-            <a href="/users/{{ vote.votee.pk }}">{{ vote.votee.get_full_name }}</a><br>
+            {{ vote.time }}: <a href="/users/{{ vote.voter.pk }}">{{ vote.voter.get_full_name }}</a>
+            {% if vote.is_cancel %}
+                cancelled their vote
+            {% else %}
+                voted for <a href="/users/{{ vote.votee.pk }}">{{ vote.votee.get_full_name }}</a><br>
+            {% endif %}
         {% endfor %}
     </div>
     {% if user.is_authenticated %}
@@ -54,7 +59,8 @@
         </form>
         <form style="margin: 10px;" action="{% url 'voting:log_out' %}" method="post">
             {% csrf_token %}
-            Logged in as <a href="/users/{{ user.pk }}">{{ user.get_full_name }}</a> <input type="submit" value="Log me out plz">
+            Logged in as <a href="/users/{{ user.pk }}">{{ user.get_full_name }}</a> <input type="submit"
+                                                                                            value="Log me out plz">
         </form>
     {% else %}
         Login to vote!

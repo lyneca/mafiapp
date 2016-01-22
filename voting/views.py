@@ -41,6 +41,8 @@ def vote(request):
     if not request.POST['votee'] == '-1':
         votee = User.objects.get(pk=request.POST['votee'])
         Vote(voter=voter, votee=votee).save()
+    else:
+        Vote(voter=voter, votee=voter, is_cancel=True).save()
     return HttpResponseRedirect(reverse('voting:index'))
 
 
