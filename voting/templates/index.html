@@ -54,7 +54,7 @@
         </form>
         <form style="margin: 10px;" action="{% url 'voting:log_out' %}" method="post">
             {% csrf_token %}
-            <input type="submit" value="Log me out plz">
+            Logged in as <a href="/users/{{ user.pk }}">{{ user.get_full_name }}</a> <input type="submit" value="Log me out plz">
         </form>
     {% else %}
         Login to vote!
