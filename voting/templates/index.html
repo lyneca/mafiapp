@@ -34,7 +34,7 @@
         {% for vote in votes %}
             {{ vote.time }}: <a href="/users/{{ vote.voter.pk }}">{{ vote.voter.get_full_name }}</a>
             {% if vote.is_cancel %}
-                cancelled their vote
+                cancelled their vote<br>
             {% else %}
                 voted for <a href="/users/{{ vote.votee.pk }}">{{ vote.votee.get_full_name }}</a><br>
             {% endif %}
