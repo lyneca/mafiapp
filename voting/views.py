@@ -33,7 +33,8 @@ def index(request):
 def vote(request):
     voter = get_object_or_404(User, pk=request.user.pk)
     votee = User.objects.get(pk=request.POST['votee'])
-    Vote.objects.get(voter=voter).delete()
+    if Vote.objects.filter(voter=voter):
+        Vote.objects.get(voter=voter).delete()
     Vote(voter=voter, votee=votee).save()
     return HttpResponseRedirect(reverse('voting:index'))
 
