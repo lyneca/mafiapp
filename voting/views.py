@@ -17,9 +17,11 @@ def reset_vote_counts():
 def index(request):
     reset_vote_counts()
     votes = Vote.objects.order_by('time')
-    votecounts = VoteCount.objects.order_by('votes')
+    votecounts = [v.get_list() for v in VoteCount.objects.order_by('votes')]
+    users = User.objects.all().filter(is_superuser=False)
     context = {
         'votes': votes,
-        'votecounts': votecounts
+        'votecounts': votecounts,
+        'users': users,
     }
     return render(request, 'index.html', context=context)
