@@ -10,3 +10,17 @@ class Vote(models.Model):
 
     def __str__(self):
         return self.voter.get_full_name() + ' voted for ' + self.votee.get_full_name()
+
+
+class VoteCount(models.Model):
+    user = models.ForeignKey(User, related_name='user')
+    votes = models.IntegerField(default=0)
+
+    def update_count(self):
+        vote_objects_for_me = Vote.objects.all().filter(votee=self.user)
+        votes_for_me = vote_objects_for_me.count()
+        self.votes = votes_for_me
+        self.save()
+
+    def __str__(self):
+        return self.user.get_full_name() + ': ' + str(self.votes)
