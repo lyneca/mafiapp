@@ -19,7 +19,7 @@ class VoteCount(models.Model):
     votes = models.IntegerField(default=0)
 
     def update_count(self):
-        vote_objects_for_me = Vote.objects.all().filter(votee=self.user, active=True)
+        vote_objects_for_me = Vote.objects.all().filter(votee=self.user, active=True, is_cancel=False)
         votes_for_me = vote_objects_for_me.count()
         self.votes = votes_for_me
         self.save()
