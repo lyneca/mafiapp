@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Vote, VoteCount
 from django.contrib.auth.models import User
@@ -25,3 +25,9 @@ def index(request):
         'users': users,
     }
     return render(request, 'index.html', context=context)
+
+
+def vote(request):
+    voter = get_object_or_404(User, pk=request.user.pk)
+    votee = User.objects.get(pk=request.POST['votee'])
+    Vote(voter=voter, votee=votee).save()

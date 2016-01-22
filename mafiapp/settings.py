@@ -117,4 +117,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_ROOT = ''
-STATICFILES_DIRS = (os.path.join('static'), )
+STATICFILES_DIRS = (os.path.join('static'),)
+# FACEBOOK_APP_ID = '1541386289505326'
+# FACEBOOK_API_SECRET = 'e4738a0ab2ad8e6cecfe094629f2bb83'
+#
+# LOGIN_URL          = '/login-form/'
+# LOGIN_REDIRECT_URL = '/logged-in/'
+# LOGIN_ERROR_URL    = '/login-error/'
