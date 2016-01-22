@@ -19,7 +19,7 @@ def reset_vote_counts():
 def index(request):
     reset_vote_counts()
     votes = Vote.objects.order_by('time')
-    votecounts = [v.get_list() for v in VoteCount.objects.order_by('votes').reverse()]
+    votecounts = [v.get_list() for v in VoteCount.objects.all().exclude(votes=0).order_by('votes').reverse()]
     users = User.objects.all().filter(is_superuser=False)
     context = {
         'votes': votes,
