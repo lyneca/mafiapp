@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from .models import Vote, VoteCount
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
 
@@ -23,6 +25,7 @@ def index(request):
         'votes': votes,
         'votecounts': votecounts,
         'users': users,
+        'user': request.user
     }
     return render(request, 'index.html', context=context)
 
@@ -30,4 +33,19 @@ def index(request):
 def vote(request):
     voter = get_object_or_404(User, pk=request.user.pk)
     votee = User.objects.get(pk=request.POST['votee'])
+    Vote.objects.get(voter=voter).delete()
     Vote(voter=voter, votee=votee).save()
+    return HttpResponseRedirect(reverse('voting:index'))
+
+
+def log_in_user(request):
+    user = authenticate(username=request.POST['username'], password=request.POST['password'])
+    if user is not None:
+        if user.is_active:
+            print("User is valid, active and authenticated")
+            login(request, user)
+        else:
+            print("The password is valid, but the account has been disabled!")
+    else:
+        print("The username and password were incorrect.")
+    return HttpResponseRedirect(reverse('voting:index'))
