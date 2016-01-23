@@ -11,13 +11,13 @@
 <div class="content" style="padding: 5px;">
 {{ user.get_full_name }} voted to lynch the following: <br>
 {% for vote in votes %}
-    {{ vote.votee.get_full_name }} at {{ vote.time }}<br>
+    <a href="/users/{{ vote.votee.pk }}">{{ vote.votee.get_full_name }}</a> at {{ vote.time }}<br>
 {% endfor %}
 <br>
 
 {{ user.get_full_name }} was voted by: <br>
 {% for vote in voted %}
-    {{ vote.voter.get_full_name }} at {{ vote.time }}<br>
+    <a href="/users/{{ vote.voter.pk }}">{{ vote.voter.get_full_name }}</a> at {{ vote.time }}<br>
 {% endfor %}
 </div>
 </body>
