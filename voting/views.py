@@ -21,12 +21,12 @@ def index(request):
     reset_vote_counts()
     votes = Vote.objects.order_by('time')
     votecounts = [v.get_list() for v in VoteCount.objects.all().exclude(votes=0).order_by('votes').reverse()]
-    users = User.objects.all().filter(is_superuser=False)
+    users = User.objects.all().filter(is_superuser=False, is_active=True)
     context = {
         'time': datetime.datetime.now().time().isoformat().split(':')[0],
         'votes': votes,
         'votecounts': votecounts,
-        'users': users,
+        'active_users': users,
         'user': request.user
     }
     return render(request, 'index.html', context=context)

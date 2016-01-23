@@ -47,7 +47,7 @@
             Vote for:
             <select name="votee" required title="User">
                 <option value=-1>Nobody</option>
-                {% for user in users %}
+                {% for user in active_users %}
                     <option value="{{ user.pk }}">{{ user.get_full_name }}</option>
                 {% endfor %}
             </select>
