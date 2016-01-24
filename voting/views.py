@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from .models import Vote, VoteCount
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-import datetime
+from datetime import datetime
 
 
 def reset_vote_counts():
@@ -19,11 +19,14 @@ def reset_vote_counts():
 # Create your views here.
 def index(request):
     reset_vote_counts()
-    votes = Vote.objects.order_by('time')
+    votes = Vote.objects.filter(
+            time__year=datetime.now().year,
+            time__month=datetime.now().month,
+            time__day=datetime.now().day).order_by('time')
     votecounts = [v.get_list() for v in VoteCount.objects.all().exclude(votes=0).order_by('votes').reverse()]
     users = User.objects.all().filter(is_superuser=False, is_active=True)
     context = {
-        'time': datetime.datetime.now().time().isoformat().split(':')[0],
+        'time': datetime.now().time().isoformat().split(':')[0],
         'votes': votes,
         'votecounts': votecounts,
         'active_users': users,
