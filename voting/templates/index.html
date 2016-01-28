@@ -30,7 +30,7 @@
             {% endfor %}
         </table>
     </div>
-    History:
+    Today's Voting History:
     <div style="text-align: left; margin: auto; width: 450px">
         {% for vote in votes %}
             {{ vote.time }}: <a href="/users/{{ vote.voter.pk }}">{{ vote.voter.get_full_name }}</a>
@@ -41,18 +41,25 @@
             {% endif %}
         {% endfor %}
     </div>
+    {% for message in messages %}
+        {{ message }}<br>
+    {% endfor %}<br>
     {% if user.is_authenticated %}
-        <form style="margin: 10px;" action="{% url 'voting:vote' %}" method="post">
-            {% csrf_token %}
-            Vote for:
-            <select name="votee" required title="User">
-                <option value=-1>Nobody</option>
-                {% for user in active_users %}
-                    <option value="{{ user.pk }}">{{ user.get_full_name }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit">Lynch them!</button>
-        </form>
+        {% if can_vote %}
+            <form style="margin: 10px;" action="{% url 'voting:vote' %}" method="post">
+                {% csrf_token %}
+                Vote for:
+                <select name="votee" required title="User">
+                    <option value=-1>Nobody</option>
+                    {% for user in active_users %}
+                        <option value="{{ user.pk }}">{{ user.get_full_name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Lynch them!</button>
+            </form>
+            {% else %}
+            It's not in voting hours!
+        {% endif %}
         <form style="margin: 10px;" action="{% url 'voting:change_pwd' %}" method="post">
             {% csrf_token %}
             <input type="password" name="newpwd" placeholder="Change Password">

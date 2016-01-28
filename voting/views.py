@@ -17,20 +17,40 @@ def reset_vote_counts():
 
 
 # Create your views here.
-def index(request):
+def index(request, messages=None):
+    if messages is None:
+        messages = []
     reset_vote_counts()
     votes = Vote.objects.filter(
-            time__year=datetime.now().year,
-            time__month=datetime.now().month,
-            time__day=datetime.now().day).order_by('time')
+            time__range=(
+                datetime(
+                        datetime.now().year,
+                        datetime.now().month,
+                        datetime.now().day,
+                        6, 0, 0, 0
+                ),
+                datetime(
+                        datetime.now().year,
+                        datetime.now().month,
+                        datetime.now().day,
+                        21, 0, 0, 0
+                )
+            )
+    ).order_by('time')
     votecounts = [v.get_list() for v in VoteCount.objects.all().exclude(votes=0).order_by('votes').reverse()]
     users = User.objects.all().filter(is_superuser=False, is_active=True)
+    if 21 > datetime.now().hour >= 6:
+        can_vote = True
+    else:
+        can_vote = False
     context = {
         'time': datetime.now().time().isoformat().split(':')[0],
         'votes': votes,
         'votecounts': votecounts,
         'active_users': users,
-        'user': request.user
+        'user': request.user,
+        'messages': messages,
+        'can_vote': can_vote,
     }
     return render(request, 'index.html', context=context)
 
