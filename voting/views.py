@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from .models import Vote, VoteCount
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib import messages
 from datetime import datetime
 
 
@@ -17,9 +18,7 @@ def reset_vote_counts():
 
 
 # Create your views here.
-def index(request, messages=None):
-    if messages is None:
-        messages = []
+def index(request):
     reset_vote_counts()
     votes = Vote.objects.filter(
             time__range=(
@@ -49,7 +48,6 @@ def index(request, messages=None):
         'votecounts': votecounts,
         'active_users': users,
         'user': request.user,
-        'messages': messages,
         'can_vote': can_vote,
     }
     return render(request, 'index.html', context=context)
@@ -66,6 +64,7 @@ def vote(request):
         Vote(voter=voter, votee=votee).save()
     else:
         Vote(voter=voter, votee=voter, is_cancel=True).save()
+        messages.success(request, "Vote recorded!")
     return HttpResponseRedirect(reverse('voting:index'))
 
 
@@ -74,11 +73,13 @@ def log_in(request):
     if user is not None:
         if user.is_active:
             print("User is valid, active and authenticated")
+            messages.success(request, "You have been successfully logged in.")
             login(request, user)
         else:
             print("The password is valid, but the account has been disabled!")
     else:
-        print("The username and password were incorrect.")
+        print("The username or password was incorrect.")
+        messages.success(request, "The username or password was incorrect.")
     return HttpResponseRedirect(reverse('voting:index'))
 
 
@@ -89,11 +90,13 @@ def change_pwd(request):
     request.user.save()
     user = authenticate(username=user.username, password=newpwd)
     login(request, user)
+    messages.success(request, "Your password has been changed.")
     return HttpResponseRedirect(reverse('voting:index'))
 
 
 def log_out(request):
     logout(request)
+    messages.success(request, "You have been logged out.")
     return HttpResponseRedirect(reverse('voting:index'))
 
 

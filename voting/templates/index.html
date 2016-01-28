@@ -12,6 +12,9 @@
 <div id="status">
 </div>
 <h1>Mafia</h1>
+{% for message in messages %}
+    {{ message }}<br>
+{% endfor %}<br>
 <div class="content" style="padding: 5px;">
     <div align="center">
         Current Vote Tallies:
@@ -41,9 +44,6 @@
             {% endif %}
         {% endfor %}
     </div>
-    {% for message in messages %}
-        {{ message }}<br>
-    {% endfor %}<br>
     {% if user.is_authenticated %}
         {% if can_vote %}
             <form style="margin: 10px;" action="{% url 'voting:vote' %}" method="post">
@@ -57,7 +57,7 @@
                 </select>
                 <button type="submit">Lynch them!</button>
             </form>
-            {% else %}
+        {% else %}
             It's not in voting hours!
         {% endif %}
         <form style="margin: 10px;" action="{% url 'voting:change_pwd' %}" method="post">
