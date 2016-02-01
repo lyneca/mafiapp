@@ -11,3 +11,13 @@ with open('appform.csv') as file:
                      )
             u.set_password('abcde')
             u.save()
+
+import random
+
+i = 0
+for user in User.objects.filter(is_superuser=False):
+    pwd = str(i * 128) + hex(random.randint(10, 15))
+    user.set_password(pwd)
+    user.save()
+    print(user.first_name, pwd)
+    i += 1
