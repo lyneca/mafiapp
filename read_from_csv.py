@@ -15,8 +15,9 @@ with open('appform.csv') as file:
 import random
 
 i = 0
+random.seed('a')
 for user in User.objects.filter(is_superuser=False):
-    pwd = str(i * 128) + hex(random.randint(10, 15))
+    pwd = hex(random.randint(16 ** 8, 16 ** 9 - 1))
     user.set_password(pwd)
     user.save()
     print(user.first_name, pwd)

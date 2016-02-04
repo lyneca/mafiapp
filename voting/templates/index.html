@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <link href='https://fonts.googleapis.com/css?family=Raleway:100|Roboto:300' rel='stylesheet' type='text/css'>
@@ -38,10 +38,11 @@
         {% for vote in votes %}
             {{ vote.time }}: <a href="/users/{{ vote.voter.pk }}">{{ vote.voter.get_full_name }}</a>
             {% if vote.is_cancel %}
-                cancelled their vote<br>
+                cancelled their vote
             {% else %}
-                voted for <a href="/users/{{ vote.votee.pk }}">{{ vote.votee.get_full_name }}</a><br>
+                voted for <a href="/users/{{ vote.votee.pk }}">{{ vote.votee.get_full_name }}</a>
             {% endif %}
+            <br>
         {% endfor %}
     </div>
     {% if user.is_authenticated %}
@@ -70,6 +71,18 @@
             Logged in as <a href="/users/{{ user.pk }}">{{ user.get_full_name }}</a> <input type="submit"
                                                                                             value="Log me out plz">
         </form>
+        {% if user.is_superuser %}
+            <form style="margin: 10px;" action="{% url 'voting:deactivate' %}" method="post">
+                {% csrf_token %}
+                Deactivate:
+                <select name="user" required title="User">
+                    {% for user in active_users %}
+                        <option value="{{ user.pk }}">{{ user.get_full_name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Deactivate them!</button>
+            </form>
+        {% endif %}
     {% else %}
         Login to vote!
         <form style="margin: 10px;" action="{% url 'voting:log_in' %}" method="post">

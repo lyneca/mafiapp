@@ -21,21 +21,21 @@ class VoteCount(models.Model):
 
     def update_count(self):
         vote_objects_for_me = Vote.objects.all().filter(
-                votee=self.user, active=True, is_cancel=False,
-                time__range=(
-                    datetime(
-                            datetime.now().year,
-                            datetime.now().month,
-                            datetime.now().day,
-                            6, 0, 0, 0
-                    ),
-                    datetime(
-                            datetime.now().year,
-                            datetime.now().month,
-                            datetime.now().day,
-                            21, 0, 0, 0
-                    )
-                ))
+            votee=self.user, active=True, is_cancel=False,
+            time__range=(
+                datetime(
+                    datetime.now().year,
+                    datetime.now().month,
+                    datetime.now().day,
+                    6, 0, 0, 0
+                ),
+                datetime(
+                    datetime.now().year,
+                    datetime.now().month,
+                    datetime.now().day,
+                    21, 0, 0, 0
+                )
+            ))
         votes_for_me = vote_objects_for_me.count()
         self.votes = votes_for_me
         self.save()
@@ -45,11 +45,3 @@ class VoteCount(models.Model):
 
     def __str__(self):
         return self.user.get_full_name() + ': ' + str(self.votes)
-
-
-""""
-> Luke Tuthill voted for Craig Smith
-> Zac Francis voted for Jarvis Carroll
-> Craig Smith voted for Luke Tuthill
-> Sam Kelly voted for Craig Smith
-"""

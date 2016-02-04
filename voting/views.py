@@ -21,20 +21,20 @@ def reset_vote_counts():
 def index(request):
     reset_vote_counts()
     votes = Vote.objects.filter(
-            time__range=(
-                datetime(
-                        datetime.now().year,
-                        datetime.now().month,
-                        datetime.now().day,
-                        6, 0, 0, 0
-                ),
-                datetime(
-                        datetime.now().year,
-                        datetime.now().month,
-                        datetime.now().day,
-                        21, 0, 0, 0
-                )
+        time__range=(
+            datetime(
+                datetime.now().year,
+                datetime.now().month,
+                datetime.now().day,
+                6, 0, 0, 0
+            ),
+            datetime(
+                datetime.now().year,
+                datetime.now().month,
+                datetime.now().day,
+                21, 0, 0, 0
             )
+        )
     ).order_by('time')
     votecounts = [v.get_list() for v in VoteCount.objects.all().exclude(votes=0).order_by('votes').reverse()]
     users = User.objects.all().filter(is_superuser=False, is_active=True)
@@ -59,12 +59,13 @@ def vote(request):
         for vote in Vote.objects.all().filter(voter=voter):
             vote.active = False
             vote.save()
-    if not request.POST['votee'] == '-1':
-        votee = User.objects.get(pk=request.POST['votee'])
-        Vote(voter=voter, votee=votee).save()
-    else:
-        Vote(voter=voter, votee=voter, is_cancel=True).save()
-        messages.success(request, "Vote recorded!")
+    if 'votee' in request.POST:
+        if not request.POST['votee'] == '-1':
+            votee = User.objects.get(pk=request.POST['votee'])
+            Vote(voter=voter, votee=votee).save()
+        else:
+            Vote(voter=voter, votee=voter, is_cancel=True).save()
+            messages.success(request, "Vote recorded!")
     return HttpResponseRedirect(reverse('voting:index'))
 
 
@@ -108,3 +109,18 @@ def user_profile(request, user_id):
         'voted': Vote.objects.filter(votee=user),
     }
     return render(request, 'user_profile.html', context=context)
+
+
+def delete_vote(request):
+    vote = Vote.objects.get(pk=request.POST['vote_id'])
+    vote.delete()
+    messages.success(request, "Vote deleted.")
+    return HttpResponseRedirect(reverse('voting:index'))
+
+
+def deactivate(request):
+    user = User.objects.get(pk=request.POST['user'])
+    user.is_active = False
+    user.save()
+    messages.success(request, "User killed.")
+    return HttpResponseRedirect(reverse('voting:index'))
