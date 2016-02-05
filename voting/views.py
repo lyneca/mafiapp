@@ -17,6 +17,11 @@ def reset_vote_counts():
         vote.update_count()
 
 
+def gotopage(request):
+    userpk = request.POST['user']
+    return HttpResponseRedirect('/users/'+str(userpk))
+
+
 # Create your views here.
 def index(request):
     reset_vote_counts()
@@ -46,6 +51,7 @@ def index(request):
         'time': datetime.now().time().isoformat().split(':')[0],
         'votes': votes,
         'votecounts': votecounts,
+        'users': User.objects.filter(is_superuser=False),
         'active_users': users,
         'user': request.user,
         'can_vote': can_vote,

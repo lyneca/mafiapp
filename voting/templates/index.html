@@ -92,6 +92,15 @@
             <input type="submit">
         </form>
     {% endif %}
+    <form style="margin: 10px;" action="{% url 'voting:viewpage' %}" method="post">
+        {% csrf_token %}
+        Go to profile:
+        <select name="user" title="user">
+            {% for u in users %}
+                <option value="{{ u.pk }}">{{ u.get_full_name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Go!">
 </div>
 </body>
 </html>
