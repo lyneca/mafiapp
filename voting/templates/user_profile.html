@@ -10,13 +10,13 @@
 <body>
 <h1>Mafia</h1>
 <div class="content" style="padding: 5px;">
-{{ user.get_full_name }} voted to lynch the following: <br>
+{{ user.get_full_name }} accused the following: <br>
 {% for vote in votes %}
     <a href="/users/{{ vote.votee.pk }}">{{ vote.votee.get_full_name }}</a> at {{ vote.time }}<br>
 {% endfor %}
 <br>
 
-{{ user.get_full_name }} was voted by: <br>
+{{ user.get_full_name }} was accused by: <br>
 {% for vote in voted %}
     <a href="/users/{{ vote.voter.pk }}">{{ vote.voter.get_full_name }}</a> at {{ vote.time }}<br>
 {% endfor %}

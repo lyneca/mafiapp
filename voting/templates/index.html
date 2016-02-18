@@ -6,7 +6,7 @@
     <link href='https://fonts.googleapis.com/css?family=Raleway:100|Roboto:300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="/static/mafia.css">
     <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
-    <title>Mafia Votes</title>
+    <title>Mafia Accusations</title>
 </head>
 <body>
 <div id="status">
@@ -17,11 +17,11 @@
 {% endfor %}<br>
 <div class="content" style="padding: 5px;">
     <div align="center">
-        Current Vote Tallies:
+        Current Accusation Tallies:
         <table style="margin: 0 10px 10px;">
             <tr>
                 <td width="150">Name</td>
-                <td>Votes</td>
+                <td>Accusations</td>
             </tr>
             {% for votecount in votecounts %}
                 <tr>
@@ -33,14 +33,14 @@
             {% endfor %}
         </table>
     </div>
-    Today's Voting History:
+    Today's Accusations:
     <div style="text-align: left; margin: auto; width: 450px">
         {% for vote in votes %}
             {{ vote.time }}: <a href="/users/{{ vote.voter.pk }}">{{ vote.voter.get_full_name }}</a>
             {% if vote.is_cancel %}
-                cancelled their vote
+                cancelled their accusation
             {% else %}
-                voted for <a href="/users/{{ vote.votee.pk }}">{{ vote.votee.get_full_name }}</a>
+                accused <a href="/users/{{ vote.votee.pk }}">{{ vote.votee.get_full_name }}</a>
             {% endif %}
             <br>
         {% endfor %}
@@ -49,7 +49,7 @@
         {% if can_vote %}
             <form style="margin: 10px;" action="{% url 'voting:vote' %}" method="post">
                 {% csrf_token %}
-                Vote for:
+                Accuse:
                 <select name="votee" required title="User">
                     <option value=-1>Nobody</option>
                     {% for user in active_users %}
@@ -84,7 +84,7 @@
             </form>
         {% endif %}
     {% else %}
-        Login to vote!
+        Login to accuse people!
         <form style="margin: 10px;" action="{% url 'voting:log_in' %}" method="post">
             {% csrf_token %}
             <input type="text" name="username" placeholder="Username">
