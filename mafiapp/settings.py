@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'mz97_n9jovf$#f%oa3b=1-)nt$)6yab=*4!=diwetq^(*)m69*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['wing2048.pythonanywhere.com', 'localhost']
 
 # Application definition
 
