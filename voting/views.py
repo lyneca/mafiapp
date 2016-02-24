@@ -43,7 +43,7 @@ def index(request):
     ).order_by('time')
     votecounts = [v.get_list() for v in VoteCount.objects.all().exclude(votes=0).order_by('votes').reverse()]
     users = User.objects.all().filter(is_superuser=False, is_active=True)
-    if 21 > datetime.now().hour >= 6:
+    if 20 > datetime.now().hour >= 8:
         can_vote = True
     else:
         can_vote = False
