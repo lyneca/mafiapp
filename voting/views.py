@@ -56,7 +56,7 @@ def index(request):
         'user': request.user,
         'can_vote': can_vote,
     }
-    return render(request, 'index.html', context=context)
+    return render(request, 'voting/index.html', context=context)
 
 
 def vote(request):
@@ -115,7 +115,7 @@ def user_profile(request, user_id):
         'votes': Vote.objects.filter(voter=user),
         'voted': Vote.objects.filter(votee=user),
     }
-    return render(request, 'user_profile.html', context=context)
+    return render(request, 'voting/user_profile.html', context=context)
 
 
 def delete_vote(request):

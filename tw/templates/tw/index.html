@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trump or West?</title>
+</head>
+<body style="
+    margin:auto;
+    width:700px;
+    font-family:'Helvetica Neue',sans-serif;
+    font-size: 26px;
+    background-color:#f5f8fa;
+">
+<h1 align="center">Who said what?</h1>
+{% for tweet in tweets %}
+    <!--suppress CssOverwrittenProperties -->
+    <div style="
+            {% if tweet == tweets|first %}
+                border-radius: 5px 5px 0 0;
+            {% elif tweet == tweets|last %}
+                border-radius: 0 0 5px 5px;
+            {% endif %}
+            background-color: white;
+            padding:5px;
+            border-top:1px solid #e1e8ed;
+            border-left:1px solid #e1e8ed;
+            border-right:1px solid #e1e8ed
+            ">
+        {{ tweet|last }}<br>
+        <div style="font-size: 14px">This tweet was written by
+            <div style="
+                display:inline-block;
+                width:110px;
+                background-color: black
+            "
+                 onmouseover="this.style.backgroundColor='transparent'"
+                 onmouseout="this.style.backgroundColor='black'">
+                <strong>
+                    {% if tweet|first == 0 %}
+                        Donald Trump!
+                    {% else %}
+                        Kanye West!
+                    {% endif %}
+                </strong>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</body>
+</html>

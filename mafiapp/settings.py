@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'mz97_n9jovf$#f%oa3b=1-)nt$)6yab=*4!=diwetq^(*)m69*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['wing2048.pythonanywhere.com', 'localhost']
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'voting',
+    'tw'
 ]
 
 MIDDLEWARE_CLASSES = [
