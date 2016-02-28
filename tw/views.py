@@ -9,7 +9,16 @@ replacements = [
     # (r'\n', ' '),
     # (r'  ', ' '),
     (r'https?://.+/.+', ''),
-    (r'#.+', ''),
+    # (r'#.+', ''),
+]
+exclude_words = [
+    'kanye', 'west',
+    'album', 'song', 'grammy', 'music',
+
+    'donald', 'trump',
+    'democrat', 'republican',
+    'virginia', 'texas', 'illinois',
+    'hillary', 'bernie',
 ]
 client_args = {
     "headers": {
@@ -33,7 +42,10 @@ def replace_stuff(s):
 
 def ambiguify(s):
     r = replace_stuff(s['text']).encode('ascii', 'ignore').decode("utf-8")
-    if len(r) == 0:
+    for word in exclude_words:
+        if word in r.lower():
+            return None
+    if len(r) < 3:
         return None
     if r[0] == '"':
         return None
