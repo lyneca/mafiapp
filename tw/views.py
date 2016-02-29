@@ -54,8 +54,8 @@ def ambiguify(s):
 
 def get_tweets():
     twitter = Twython(APP_KEY, access_token=ACCESS_TOKEN)
-    trump = twitter.search(q='from:realDonaldTrump', result_type='mixed', count='100')['statuses']
-    west = twitter.search(q='from:kanyewest', result_type='mixed', count='100')['statuses']
+    trump = twitter.search(q='from:realDonaldTrump -' + ' -'.join(exclude_words), result_type='mixed', count='100')['statuses']
+    west = twitter.search(q='from:kanyewest -' + ' -'.join(exclude_words), result_type='mixed', count='100')['statuses']
     trump_tweets = [ambiguify(tweet) for tweet in trump]
     trump_tweets_ = []
     west_tweets = [ambiguify(tweet) for tweet in west]
