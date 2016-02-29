@@ -14,11 +14,13 @@ replacements = [
 exclude_words = [
     'kanye', 'west',
     'album', 'song', 'grammy', 'music', 'artist',
+    'adidas', 'yeezys',
 
     'donald', 'trump',
     'democrat', 'republican',
     'vote', 'elect', 'candidate', 'presidential',
-    'virginia', 'texas', 'illinois',
+    'virginia', 'texas', 'illinois', 'carolina', 'georgia', 'atlanta',
+    'america',
     'hillary', 'bernie', 'romney', 'cruz', 'rubio'
 ]
 client_args = {
