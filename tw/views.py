@@ -19,7 +19,7 @@ exclude_words = [
     'democrat', 'republican',
     'vote', 'elect', 'candidate', 'presidential',
     'virginia', 'texas', 'illinois',
-    'hillary', 'bernie', 'romney',
+    'hillary', 'bernie', 'romney', 'cruz', 'rubio'
 ]
 client_args = {
     "headers": {

@@ -90,8 +90,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tw/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4373928">
-              <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.6123499">
+              <caret line="21" column="49" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -924,7 +924,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456707106432</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="added moar words">
+      <created>1456707258386</created>
+      <option name="number" value="00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1456707258386</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TodoView">
@@ -974,7 +980,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="prettied the site up" />
     <MESSAGE value="fixed a bug" />
     <MESSAGE value="added profile pages, timestamps, and tidied everything up" />
     <MESSAGE value="let the users know who they are" />
@@ -999,7 +1004,8 @@
     <MESSAGE value="added exclude words to make it slightly harder" />
     <MESSAGE value="included the exclude words in the search query" />
     <MESSAGE value="added some better exclusion words" />
-    <option name="LAST_COMMIT_MESSAGE" value="added some better exclusion words" />
+    <MESSAGE value="added moar words" />
+    <option name="LAST_COMMIT_MESSAGE" value="added moar words" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1454,8 +1460,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tw/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4373928">
-          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.6123499">
+          <caret line="21" column="49" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
