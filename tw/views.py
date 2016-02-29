@@ -18,8 +18,8 @@ exclude_words = [
 
     'donald', 'trump',
     'democrat', 'republican',
-    'vote', 'elect', 'candidate', 'presidential',
-    'virginia', 'texas', 'illinois', 'carolina', 'georgia', 'atlanta',
+    'vote', 'elect', 'candidate', 'presidential', 'poll',
+    'virginia', 'texas', 'illinois', 'carolina', 'georgia', 'atlanta', 'ohio', 'mexico', 'alabama',
     'america',
     'hillary', 'bernie', 'romney', 'cruz', 'rubio'
 ]

@@ -90,8 +90,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tw/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.67066896">
-              <caret line="23" column="50" selection-start-line="23" selection-start-column="50" selection-end-line="23" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.6123499">
+              <caret line="21" column="99" selection-start-line="21" selection-start-column="99" selection-end-line="21" selection-end-column="99" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -936,7 +936,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456707377535</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="haaandds are typing wooorrrds">
+      <created>1456707554954</created>
+      <option name="number" value="00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1456707554954</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TodoView">
@@ -986,7 +992,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added profile pages, timestamps, and tidied everything up" />
     <MESSAGE value="let the users know who they are" />
     <MESSAGE value="vote cancelling" />
     <MESSAGE value="added in a &lt;br&gt;" />
@@ -1011,7 +1016,8 @@
     <MESSAGE value="added some better exclusion words" />
     <MESSAGE value="added moar words" />
     <MESSAGE value="haaaandss" />
-    <option name="LAST_COMMIT_MESSAGE" value="haaaandss" />
+    <MESSAGE value="haaandds are typing wooorrrds" />
+    <option name="LAST_COMMIT_MESSAGE" value="haaandds are typing wooorrrds" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1466,8 +1472,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tw/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.67066896">
-          <caret line="23" column="50" selection-start-line="23" selection-start-column="50" selection-end-line="23" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.6123499">
+          <caret line="21" column="99" selection-start-line="21" selection-start-column="99" selection-end-line="21" selection-end-column="99" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
