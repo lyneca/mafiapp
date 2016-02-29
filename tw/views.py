@@ -13,10 +13,10 @@ replacements = [
 ]
 exclude_words = [
     'kanye', 'west',
-    'album', 'song', 'grammy', 'music',
+    'album', 'song', 'grammy', 'music', 'artist',
 
     'donald', 'trump',
-    'democrat', 'republican',
+    'democrat', 'republican', 'vote', 'elect',
     'virginia', 'texas', 'illinois',
     'hillary', 'bernie',
 ]
