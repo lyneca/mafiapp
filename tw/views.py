@@ -16,9 +16,10 @@ exclude_words = [
     'album', 'song', 'grammy', 'music', 'artist',
 
     'donald', 'trump',
-    'democrat', 'republican', 'vote', 'elect',
+    'democrat', 'republican',
+    'vote', 'elect', 'candidate', 'presidential',
     'virginia', 'texas', 'illinois',
-    'hillary', 'bernie',
+    'hillary', 'bernie', 'romney',
 ]
 client_args = {
     "headers": {
